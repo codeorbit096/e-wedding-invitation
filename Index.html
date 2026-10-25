@@ -1,0 +1,57 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wedding Invitation</title>
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0; background:#fff4e8; color:#713b31;
+ font-family:Georgia,serif;text-align:center
+}
+.card{
+ min-height:100vh;padding:35px 20px;
+ display:flex;flex-direction:column;
+ align-items:center;justify-content:center;
+ background:linear-gradient(#fff8ef,#f5dfcb)
+}
+.ornament{font-size:38px;color:#b58a42}
+h1{font-size:42px;margin:15px 0}
+.names{font-size:32px;color:#a34848}
+p{font-size:18px;line-height:1.7}
+button{
+ background:#8e393b;color:white;border:0;
+ padding:14px 25px;border-radius:25px;
+ font-size:16px;margin:10px
+}
+#details{display:none}
+</style>
+</head>
+<body>
+<div class="card">
+ <div class="ornament">❀ ✦ ❀</div>
+ <p>TOGETHER WITH THEIR FAMILIES</p>
+ <h1>Wedding Invitation</h1>
+ <div class="names">Rahul & Priya</div>
+ <p>With love and blessings,<br>
+ we invite you to celebrate our wedding.</p>
+ <div class="ornament">❦</div>
+ <p>Sunday, 15 November 2026</p>
+ <button onclick="showInvite()">Open Invitation</button>
+ <div id="details">
+  <h2>You're Invited!</h2>
+  <p>Join us for our special day.<br>
+  Venue: Your Wedding Venue<br>
+  Time: 7:00 PM</p>
+  <p>With love, Rahul & Priya</p>
+ </div>
+</div>
+<script>
+function showInvite(){
+ document.getElementById('details').style.display='block';
+}
+</script>
+</body>
+</html>
