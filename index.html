@@ -1,57 +1,413 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Wedding Invitation</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Fazal Baksh & Shibra | Wedding Invitation</title>
 <style>
-*{box-sizing:border-box}
-body{
- margin:0; background:#fff4e8; color:#713b31;
- font-family:Georgia,serif;text-align:center
-}
-.card{
- min-height:100vh;padding:35px 20px;
- display:flex;flex-direction:column;
- align-items:center;justify-content:center;
- background:linear-gradient(#fff8ef,#f5dfcb)
-}
-.ornament{font-size:38px;color:#b58a42}
-h1{font-size:42px;margin:15px 0}
-.names{font-size:32px;color:#a34848}
-p{font-size:18px;line-height:1.7}
-button{
- background:#8e393b;color:white;border:0;
- padding:14px 25px;border-radius:25px;
- font-size:16px;margin:10px
-}
-#details{display:none}
+  @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Great+Vibes&family=Poppins:wght@300;400;500&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  body {
+    background: #061a15;
+    color: #e8d5a3;
+    font-family: 'Poppins', sans-serif;
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+
+  /* Opening Screen */
+  #opening {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(180deg, #0a2a22 0%, #061a15 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    transition: opacity 0.8s ease, visibility 0.8s;
+  }
+  #opening.hide {
+    opacity: 0;
+    visibility: hidden;
+  }
+  .open-btn {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #c9a84c, #8b6914);
+    border: 3px solid #e8d5a3;
+    color: #061a15;
+    font-size: 13px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    cursor: pointer;
+    box-shadow: 0 0 30px rgba(201,168,76,0.4);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+  }
+
+  /* Main Content */
+  .container {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 20px 16px 60px;
+  }
+
+  /* Gold Border Card */
+  .card {
+    background: linear-gradient(145deg, #0d2e26, #0a241e);
+    border: 1px solid #c9a84c55;
+    border-radius: 12px;
+    padding: 30px 20px;
+    margin-bottom: 24px;
+    position: relative;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    inset: 8px;
+    border: 1px solid #c9a84c33;
+    border-radius: 8px;
+    pointer-events: none;
+  }
+
+  .ornament {
+    text-align: center;
+    color: #c9a84c;
+    font-size: 22px;
+    margin-bottom: 12px;
+    letter-spacing: 8px;
+  }
+
+  .section-title {
+    font-family: 'Cinzel', serif;
+    font-size: 15px;
+    letter-spacing: 3px;
+    color: #c9a84c;
+    text-align: center;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+  }
+
+  h1 {
+    font-family: 'Great Vibes', cursive;
+    font-size: 42px;
+    text-align: center;
+    color: #f5e6c8;
+    margin: 8px 0;
+    line-height: 1.2;
+  }
+
+  .names {
+    font-family: 'Cinzel', serif;
+    font-size: 26px;
+    text-align: center;
+    color: #e8d5a3;
+    margin: 10px 0;
+    letter-spacing: 1px;
+  }
+
+  .divider {
+    width: 80px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #c9a84c, transparent);
+    margin: 16px auto;
+  }
+
+  p {
+    text-align: center;
+    font-size: 14px;
+    color: #d4c4a0;
+    margin: 8px 0;
+  }
+
+  /* Photos */
+  .photo-box {
+    width: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 16px 0;
+    border: 2px solid #c9a84c44;
+  }
+  .photo-box img {
+    width: 100%;
+    display: block;
+    object-fit: cover;
+  }
+
+  /* Countdown */
+  .countdown {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin: 20px 0;
+  }
+  .count-box {
+    background: #0a241e;
+    border: 1px solid #c9a84c55;
+    border-radius: 8px;
+    padding: 12px 10px;
+    min-width: 64px;
+    text-align: center;
+  }
+  .count-num {
+    font-family: 'Cinzel', serif;
+    font-size: 24px;
+    color: #f5e6c8;
+    display: block;
+  }
+  .count-label {
+    font-size: 10px;
+    color: #c9a84c;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  /* Timeline */
+  .timeline {
+    margin: 20px 0;
+    padding-left: 20px;
+    border-left: 2px solid #c9a84c44;
+  }
+  .timeline-item {
+    position: relative;
+    padding-bottom: 18px;
+    padding-left: 16px;
+  }
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -26px;
+    top: 4px;
+    width: 10px;
+    height: 10px;
+    background: #c9a84c;
+    border-radius: 50%;
+  }
+  .time {
+    font-size: 13px;
+    color: #c9a84c;
+    font-weight: 500;
+  }
+  .event {
+    font-size: 14px;
+    color: #e8d5a3;
+  }
+
+  /* Buttons */
+  .btn {
+    display: block;
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(90deg, #c9a84c, #a88b2e);
+    color: #061a15;
+    border: none;
+    border-radius: 30px;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    margin: 12px 0;
+    cursor: pointer;
+  }
+
+  /* Form */
+  input, select, textarea {
+    width: 100%;
+    padding: 12px 14px;
+    margin: 8px 0;
+    background: #0a241e;
+    border: 1px solid #c9a84c44;
+    border-radius: 8px;
+    color: #e8d5a3;
+    font-size: 14px;
+    outline: none;
+  }
+  input::placeholder, textarea::placeholder {
+    color: #8a7a5a;
+  }
+
+  /* Music Button */
+  .music-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: #c9a84c;
+    color: #061a15;
+    border: none;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    cursor: pointer;
+  }
+
+  .footer {
+    text-align: center;
+    font-size: 12px;
+    color: #8a7a5a;
+    margin-top: 30px;
+  }
 </style>
 </head>
 <body>
-<div class="card">
- <div class="ornament">❀ ✦ ❀</div>
- <p>TOGETHER WITH THEIR FAMILIES</p>
- <h1>Wedding Invitation</h1>
- <div class="names">Rahul & Priya</div>
- <p>With love and blessings,<br>
- we invite you to celebrate our wedding.</p>
- <div class="ornament">❦</div>
- <p>Sunday, 15 November 2026</p>
- <button onclick="showInvite()">Open Invitation</button>
- <div id="details">
-  <h2>You're Invited!</h2>
-  <p>Join us for our special day.<br>
-  Venue: Your Wedding Venue<br>
-  Time: 7:00 PM</p>
-  <p>With love, Rahul & Priya</p>
- </div>
+
+<!-- Opening Screen -->
+<div id="opening">
+  <div class="ornament">✦ ❦ ✦</div>
+  <p style="margin: 20px 0; letter-spacing: 2px; font-size: 13px;">THE WEDDING CELEBRATION OF</p>
+  <div class="open-btn" onclick="openInvite()">TAP<br>TO OPEN</div>
 </div>
+
+<!-- Main Content -->
+<div class="container" id="main" style="display:none;">
+
+  <!-- Hero -->
+  <div class="card">
+    <div class="ornament">❀ ✦ ❀</div>
+    <div class="section-title">Together with their families</div>
+    <h1>Fazal Baksh</h1>
+    <p style="font-size:18px; color:#c9a84c;">&</p>
+    <h1>Shibra</h1>
+    <div class="divider"></div>
+    <p>Request the honour of your presence</p>
+    <p style="margin-top:12px; font-size:15px; color:#e8d5a3;">Thursday, 19 November 2026</p>
+  </div>
+
+  <!-- Photos -->
+  <div class="card">
+    <div class="photo-box">
+      <img src="couple1.jpg" alt="Fazal Baksh & Shibra" onerror="this.style.display='none'">
+    </div>
+    <div class="photo-box">
+      <img src="couple2.jpg" alt="Couple" onerror="this.style.display='none'">
+    </div>
+  </div>
+
+  <!-- Countdown -->
+  <div class="card">
+    <div class="section-title">Counting Down to Forever</div>
+    <div class="countdown" id="countdown">
+      <div class="count-box"><span class="count-num" id="days">00</span><span class="count-label">Days</span></div>
+      <div class="count-box"><span class="count-num" id="hours">00</span><span class="count-label">Hours</span></div>
+      <div class="count-box"><span class="count-num" id="mins">00</span><span class="count-label">Mins</span></div>
+      <div class="count-box"><span class="count-num" id="secs">00</span><span class="count-label">Secs</span></div>
+    </div>
+  </div>
+
+  <!-- Timeline -->
+  <div class="card">
+    <div class="section-title">Program Timeline</div>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="time">4:00 PM</div>
+        <div class="event">Guest Arrival</div>
+      </div>
+      <div class="timeline-item">
+        <div class="time">5:00 PM</div>
+        <div class="event">Wedding Ceremony</div>
+      </div>
+      <div class="timeline-item">
+        <div class="time">7:00 PM</div>
+        <div class="event">Dinner Reception</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Venue -->
+  <div class="card">
+    <div class="section-title">Venue</div>
+    <p style="font-size:18px; color:#f5e6c8; margin:10px 0;">Taj Hotel</p>
+    <p>Mumbai</p>
+    <a href="https://maps.google.com/?q=Taj+Hotel+Mumbai" target="_blank" class="btn">View on Google Maps</a>
+  </div>
+
+  <!-- Pre Wedding -->
+  <div class="card">
+    <div class="section-title">Pre-Wedding Events</div>
+    <p style="margin:8px 0;">✦ Mehndi Ceremony</p>
+    <p style="margin:8px 0;">✦ Haldi Ceremony</p>
+    <p style="margin:8px 0;">✦ Sangeet Night</p>
+  </div>
+
+  <!-- RSVP Form -->
+  <div class="card">
+    <div class="section-title">Send Your Wishes</div>
+    <p style="margin-bottom:12px;">Your presence is the best gift 🎁</p>
+    <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+      <input type="text" name="name" placeholder="Your Full Name" required>
+      <input type="email" name="email" placeholder="Email Address">
+      <select name="attending">
+        <option value="">Will you be attending?</option>
+        <option value="Yes">Joyfully Accept</option>
+        <option value="No">Regretfully Decline</option>
+      </select>
+      <textarea name="message" rows="3" placeholder="Write your wishes..."></textarea>
+      <button type="submit" class="btn">Send Message</button>
+    </form>
+  </div>
+
+  <div class="footer">
+    <p>We can't wait to celebrate with you!</p>
+    <p style="margin-top:6px;">Fazal Baksh & Shibra</p>
+  </div>
+</div>
+
+<!-- Music Button -->
+<button class="music-btn" id="musicBtn" onclick="toggleMusic()">▶</button>
+
+<audio id="bgMusic" loop>
+  <source src="ishq-murshid.mp3" type="audio/mpeg">
+</audio>
+
 <script>
-function showInvite(){
- document.getElementById('details').style.display='block';
-}
+  function openInvite() {
+    document.getElementById('opening').classList.add('hide');
+    document.getElementById('main').style.display = 'block';
+    // Try to play music after user interaction
+    const music = document.getElementById('bgMusic');
+    music.play().catch(()=>{});
+    document.getElementById('musicBtn').innerText = '⏸';
+  }
+
+  function toggleMusic() {
+    const music = document.getElementById('bgMusic');
+    const btn = document.getElementById('musicBtn');
+    if (music.paused) {
+      music.play();
+      btn.innerText = '⏸';
+    } else {
+      music.pause();
+      btn.innerText = '▶';
+    }
+  }
+
+  // Countdown
+  const weddingDate = new Date('2026-11-19T17:00:00').getTime();
+  setInterval(() => {
+    const now = new Date().getTime();
+    const dist = weddingDate - now;
+    if (dist < 0) return;
+    document.getElementById('days').innerText = Math.floor(dist / (1000*60*60*24)).toString().padStart(2,'0');
+    document.getElementById('hours').innerText = Math.floor((dist % (1000*60*60*24)) / (1000*60*60)).toString().padStart(2,'0');
+    document.getElementById('mins').innerText = Math.floor((dist % (1000*60*60)) / (1000*60)).toString().padStart(2,'0');
+    document.getElementById('secs').innerText = Math.floor((dist % (1000*60)) / 1000).toString().padStart(2,'0');
+  }, 1000);
 </script>
 </body>
 </html>
