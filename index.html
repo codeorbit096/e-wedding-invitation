@@ -57,7 +57,7 @@
   .container {
     max-width: 480px;
     margin: 0 auto;
-    padding: 20px 16px 80px;
+    padding: 20px 16px 100px;
   }
 
   .card {
@@ -178,21 +178,6 @@
     cursor: pointer;
   }
 
-  input, select, textarea {
-    width: 100%;
-    padding: 12px 14px;
-    margin: 8px 0;
-    background: #0a241e;
-    border: 1px solid #c9a84c44;
-    border-radius: 8px;
-    color: #e8d5a3;
-    font-size: 14px;
-    outline: none;
-  }
-  input::placeholder, textarea::placeholder {
-    color: #8a7a5a;
-  }
-
   .music-btn {
     position: fixed;
     bottom: 20px;
@@ -216,7 +201,29 @@
     text-align: center;
     font-size: 12px;
     color: #8a7a5a;
-    margin-top: 30px;
+    margin-top: 40px;
+    padding-bottom: 20px;
+  }
+  .footer a {
+    color: #c9a84c;
+    text-decoration: none;
+  }
+
+  /* Confetti */
+  .confetti {
+    position: fixed;
+    width: 8px;
+    height: 8px;
+    background: #c9a84c;
+    top: -10px;
+    z-index: 999;
+    animation: fall linear forwards;
+  }
+  @keyframes fall {
+    to {
+      transform: translateY(100vh) rotate(720deg);
+      opacity: 0;
+    }
   }
 </style>
 </head>
@@ -260,8 +267,8 @@
     <p style="margin-bottom: 12px; font-size: 13px;">Scratch the card to reveal the date</p>
     
     <div style="position: relative; width: 100%; max-width: 280px; margin: 0 auto; border-radius: 12px; overflow: hidden; border: 2px solid #c9a84c66;">
-      <div id="revealContent" style="background: linear-gradient(135deg, #c9a84c, #a88b2e); color: #061a15; text-align: center; padding: 30px 15px; font-family: 'Cinzel', serif;">
-        <div style="font-size: 14px; letter-spacing: 2px;">YOU'RE INVITED</div>
+      <div id="revealContent" style="background: #ffffff; color: #061a15; text-align: center; padding: 30px 15px; font-family: 'Cinzel', serif;">
+        <div style="font-size: 14px; letter-spacing: 2px; color:#c9a84c;">YOU'RE INVITED</div>
         <div style="font-size: 22px; font-weight: 700; margin: 8px 0;">19 November 2026</div>
         <div style="font-size: 13px;">Thursday • 5:00 PM</div>
       </div>
@@ -304,43 +311,49 @@
     <p style="margin:8px 0;">✦ Sangeet Night</p>
   </div>
 
-  <!-- RSVP Form -->
+  <!-- Message instead of form -->
   <div class="card">
-    <div class="section-title">Send Your Wishes</div>
-    <p style="margin-bottom:12px;">Your presence is the best gift 🎁</p>
-    <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
-      <input type="text" name="name" placeholder="Your Full Name" required>
-      <input type="email" name="email" placeholder="Email Address">
-      <select name="attending">
-        <option value="">Will you be attending?</option>
-        <option value="Yes">Joyfully Accept</option>
-        <option value="No">Regretfully Decline</option>
-      </select>
-      <textarea name="message" rows="3" placeholder="Write your wishes..."></textarea>
-      <button type="submit" class="btn">Send Message</button>
-    </form>
+    <div class="section-title">A Note for You</div>
+    <p style="font-size:15px; line-height:1.7; color:#e8d5a3;">
+      Your presence will make our special day even more beautiful.<br><br>
+      We are truly blessed to have you in our lives.<br><br>
+      With love & blessings,<br>
+      <strong style="color:#c9a84c;">Fazal Baksh & Shibra</strong>
+    </p>
   </div>
 
+  <!-- Creator Footer -->
   <div class="footer">
-    <p>We can't wait to celebrate with you!</p>
-    <p style="margin-top:6px;">Fazal Baksh & Shibra</p>
+    <p style="margin-bottom:6px;">Created with ❤️ by</p>
+    <p style="color:#c9a84c; font-size:14px; margin-bottom:4px;">codeorbit096</p>
+    <p><a href="mailto:codeorbit096@gmail.com">codeorbit096@gmail.com</a></p>
+    <p style="margin-top:4px;">Instagram: <a href="https://instagram.com/code.orbit.in" target="_blank">@code.orbit.in</a></p>
   </div>
 </div>
 
 <!-- Music Button -->
 <button class="music-btn" id="musicBtn" onclick="toggleMusic()">▶</button>
 
-<audio id="bgMusic" loop>
+<audio id="bgMusic" loop preload="auto">
   <source src="ishq%20murshid.mp3" type="audio/mpeg">
 </audio>
 
 <script>
+  let musicStarted = false;
+
   function openInvite() {
     document.getElementById('opening').classList.add('hide');
     document.getElementById('main').style.display = 'block';
+    
     const music = document.getElementById('bgMusic');
-    music.play().catch(()=>{});
-    document.getElementById('musicBtn').innerText = '⏸';
+    music.volume = 0.7;
+    music.play().then(() => {
+      musicStarted = true;
+      document.getElementById('musicBtn').innerText = '⏸';
+    }).catch(() => {
+      document.getElementById('musicBtn').innerText = '▶';
+    });
+
     setTimeout(initScratch, 400);
   }
 
@@ -360,17 +373,27 @@
   const canvas = document.getElementById('scratchCanvas');
   const ctx = canvas.getContext('2d');
   let isDrawing = false;
+  let scratched = false;
 
   function initScratch() {
     const rect = canvas.parentElement.getBoundingClientRect();
     canvas.width = rect.width;
     canvas.height = rect.height;
 
-    ctx.fillStyle = '#c9a84c';
+    // White background for scratch layer
+    ctx.fillStyle = '#f5f5f5';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
+    // Add some texture
+    ctx.fillStyle = '#e0e0e0';
+    for(let i=0; i<300; i++){
+      ctx.beginPath();
+      ctx.arc(Math.random()*canvas.width, Math.random()*canvas.height, 1.2, 0, Math.PI*2);
+      ctx.fill();
+    }
+
     ctx.font = 'bold 15px Cinzel, serif';
-    ctx.fillStyle = '#061a15';
+    ctx.fillStyle = '#888';
     ctx.textAlign = 'center';
     ctx.fillText('✦ SCRATCH HERE ✦', canvas.width/2, canvas.height/2);
   }
@@ -385,8 +408,41 @@
 
     ctx.globalCompositeOperation = 'destination-out';
     ctx.beginPath();
-    ctx.arc(x, y, 24, 0, Math.PI * 2);
+    ctx.arc(x, y, 26, 0, Math.PI * 2);
     ctx.fill();
+
+    // Check if enough scratched
+    if (!scratched) {
+      checkScratchPercent();
+    }
+  }
+
+  function checkScratchPercent() {
+    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    let transparent = 0;
+    for (let i = 3; i < imageData.data.length; i += 4) {
+      if (imageData.data[i] === 0) transparent++;
+    }
+    const percent = transparent / (canvas.width * canvas.height);
+    if (percent > 0.45) {
+      scratched = true;
+      launchConfetti();
+    }
+  }
+
+  function launchConfetti() {
+    const colors = ['#c9a84c', '#f5e6c8', '#e8d5a3', '#ffffff', '#a88b2e'];
+    for (let i = 0; i < 60; i++) {
+      const conf = document.createElement('div');
+      conf.className = 'confetti';
+      conf.style.left = Math.random() * 100 + 'vw';
+      conf.style.background = colors[Math.floor(Math.random() * colors.length)];
+      conf.style.width = (Math.random() * 8 + 4) + 'px';
+      conf.style.height = (Math.random() * 8 + 4) + 'px';
+      conf.style.animationDuration = (Math.random() * 2 + 2) + 's';
+      document.body.appendChild(conf);
+      setTimeout(() => conf.remove(), 4000);
+    }
   }
 
   canvas.addEventListener('mousedown', () => isDrawing = true);
